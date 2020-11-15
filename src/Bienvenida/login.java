@@ -5,14 +5,11 @@
  */
 package Bienvenida;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import java.io.FileReader;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -21,6 +18,10 @@ import javax.swing.SwingUtilities;
 public class login extends javax.swing.JFrame {
 
     dashboard dashboard = new dashboard();
+    JSONObject credentials = new JSONObject();
+    pre_auth auth = new pre_auth();
+    JSONArray arrayCred = new JSONArray();
+    JSONParser parsing = new JSONParser();
 
     /**
      * Creates new form login
@@ -30,7 +31,7 @@ public class login extends javax.swing.JFrame {
 
     }
     private boolean isValid = false;
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -167,9 +168,30 @@ public class login extends javax.swing.JFrame {
     public boolean getIsValid() {
         return this.isValid;
     }
-    
-    private void clearFields(){
-    i_username.setText("");
+
+    //Valida las credenciales y setea el flag de valido para desplegar la pantalla correcta
+    private void validateCredentials() {
+        int size = arrayCred.size();
+
+        credentials.put("Username", i_username.getText());
+        credentials.put("Password", i_passwd.getText());
+        for (int i = 0; i < size; i++) {
+            if (credentials.equals(arrayCred.get(i))) {
+                this.isValid = true;
+                JOptionPane.showMessageDialog(null, "Bienvenido");
+                dispose();
+                break;
+            } else if (i == size - 1) {
+                this.isValid = false;
+                JOptionPane.showMessageDialog(null, "Su usuario o contraseña es inválida.");
+                clearFields();
+            }
+        }
+    }
+
+    //Resetea los fields a nulos
+    private void clearFields() {
+        i_username.setText("");
         i_passwd.setText("");
         i_username.requestFocus();
     }
@@ -178,28 +200,24 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_i_passwdActionPerformed
 
     private void btn_enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_enviarActionPerformed
-        // TODO add your handling code here:
-    
-        //Esto es para que el enter ejecute el boton en el focus
-        SwingUtilities.getRootPane(btn_enviar).setDefaultButton(btn_enviar);
-        String username = i_username.getText();
-        String passwd = i_passwd.getText();
-        
-        //***
-        //Valida si el usuario es correcto o no para redirigirlo al dashboard o reintentar credenciales
-        if (username.equals("admin") && passwd.equals("admin")) {
-            this.isValid = true;
-            JOptionPane.showMessageDialog(null, "Bienvenido");
-            dispose();
-        } else {
-            this.isValid = false;
-            JOptionPane.showMessageDialog(null, "Su usuario o contraseña es inválida.");
-            clearFields();
-        }
-        while (getIsValid()) {
-            dashboard.setVisible(true);
+
+        Object ob;
+
+        //Lee el file de user data
+        try {
+            FileReader file = new FileReader("UserData.json");
+            ob = parsing.parse(file);
+            arrayCred = (JSONArray) ob;
+            file.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Se nos cayó el sistema");
         }
 
+        validateCredentials();
+
+        if (getIsValid()) {
+            dashboard.setVisible(true);
+        }
 
     }//GEN-LAST:event_btn_enviarActionPerformed
 
@@ -209,7 +227,6 @@ public class login extends javax.swing.JFrame {
 
     private void registerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerMouseClicked
 
-        pre_auth auth = new pre_auth();
         dispose();
         auth.setVisible(true);
     }//GEN-LAST:event_registerMouseClicked

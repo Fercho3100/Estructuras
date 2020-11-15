@@ -5,9 +5,7 @@
  */
 package estructuras_k;
 
-import Bienvenida.dashboard;
 import Bienvenida.login;
-
 
 /**
  *
@@ -20,14 +18,12 @@ public class Estructuras_K {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-       login login = new login();
-        
-        while(!login.getIsValid()){
+        login login = new login();
+
+        while (!login.getIsValid()) {
             login.setVisible(true);
         }
-        
-        
-        
+
     }
-    
+
 }
