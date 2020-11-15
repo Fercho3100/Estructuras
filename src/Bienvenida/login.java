@@ -12,12 +12,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author Fernando
  */
 public class login extends javax.swing.JFrame {
+
+    dashboard dashboard = new dashboard();
 
     /**
      * Creates new form login
@@ -26,7 +29,8 @@ public class login extends javax.swing.JFrame {
         initComponents();
 
     }
-
+    private boolean isValid = false;
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -160,29 +164,54 @@ public class login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public boolean getIsValid() {
+        return this.isValid;
+    }
+    
+    private void clearFields(){
+    i_username.setText("");
+        i_passwd.setText("");
+        i_username.requestFocus();
+    }
+
     private void i_passwdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_i_passwdActionPerformed
     }//GEN-LAST:event_i_passwdActionPerformed
 
     private void btn_enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_enviarActionPerformed
         // TODO add your handling code here:
-
-        if (i_username.getText().equals("admin") && i_passwd.getText().equals("admin")) {
+    
+        //Esto es para que el enter ejecute el boton en el focus
+        SwingUtilities.getRootPane(btn_enviar).setDefaultButton(btn_enviar);
+        String username = i_username.getText();
+        String passwd = i_passwd.getText();
+        
+        //***
+        //Valida si el usuario es correcto o no para redirigirlo al dashboard o reintentar credenciales
+        if (username.equals("admin") && passwd.equals("admin")) {
+            this.isValid = true;
             JOptionPane.showMessageDialog(null, "Bienvenido");
+            dispose();
         } else {
-            JOptionPane.showMessageDialog(null, "Usuario o Contraseña incorrecto.");
+            this.isValid = false;
+            JOptionPane.showMessageDialog(null, "Su usuario o contraseña es inválida.");
+            clearFields();
         }
+        while (getIsValid()) {
+            dashboard.setVisible(true);
+        }
+
+
     }//GEN-LAST:event_btn_enviarActionPerformed
 
     private void i_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_i_usernameActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_i_usernameActionPerformed
 
     private void registerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerMouseClicked
-        
+
         pre_auth auth = new pre_auth();
-        auth.setVisible(true);
-        
         dispose();
+        auth.setVisible(true);
     }//GEN-LAST:event_registerMouseClicked
 
     /**
