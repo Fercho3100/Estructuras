@@ -12,5 +12,6 @@ package constantes;
 public class constantes {
     public static void datos() {
     // Final int constante = xxx; este es un ejemplo de como generar las constantes en java ** IMPORTANTE QUE LLEVE EL "final" **
+    
     }
 }
