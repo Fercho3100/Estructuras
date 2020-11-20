@@ -5,17 +5,18 @@
  */
 package estructuras;
 
+import java.util.Date;
 /**
  *
  * @author Naomi Villalobos
  */
 public class Persona {
     
-    String name,last_name,rol,DateWork,Date_to_asso;
+    String name,last_name,rol;
     int id,admin,date,is_active;
-    double amount_gross;
+    double amount_gross; Date DateWork,Date_to_asso;
 
-    public Persona(int id, String name,String last_name,int admin,String rol, double amount_gross, String DateWork ,String Date_to_asso,int is_active) {
+    public Persona(int id, String name,String last_name,int admin,String rol, double amount_gross, Date DateWork ,Date Date_to_asso,int is_active) {
         this.id = id;
         this.name = name;
         this.last_name = last_name;
@@ -56,19 +57,19 @@ public class Persona {
         this.rol = rol;
     }
 
-    public String getDateWork() {
+    public Date getDateWork() {
         return DateWork;
     }
 
-    public void setDateWork(String DateWork) {
+    public void setDateWork(Date DateWork) {
         this.DateWork = DateWork;
     }
 
-    public String getDate_to_asso() {
+    public Date getDate_to_asso() {
         return Date_to_asso;
     }
 
-    public void setDate_to_asso(String Date_to_asso) {
+    public void setDate_to_asso(Date Date_to_asso) {
         this.Date_to_asso = Date_to_asso;
     }
 
@@ -111,9 +112,5 @@ public class Persona {
     public void setAmount_gross(double amount_gross) {
         this.amount_gross = amount_gross;
     }
-
-
-    
-
     
 }

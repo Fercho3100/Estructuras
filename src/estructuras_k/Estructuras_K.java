@@ -7,6 +7,7 @@ package estructuras_k;
 
 import Bienvenida.login;
 
+
 /**
  *
  * @author Fernando
@@ -20,6 +21,7 @@ public class Estructuras_K {
         // TODO code application logic here
         login login = new login();
 
+        login.setVisible(true);
         while (!login.getIsValid()) {
             login.setVisible(true);
         }

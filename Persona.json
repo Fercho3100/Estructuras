@@ -1,0 +1,3 @@
+[{"Id": "1", "name": "admin", "last_name": "", "admin": 1,"rol": "Administrador","AmountGross": ,0,"DateWork": "","Date_to_asso": "","is_active": 1},
+{"Id": "2", "name": "Romilia", "last_name": "Estrada", "admin": 0,"rol": "HR General Manager","AmountGross": ,4500.00,"DateWork": "2020-01-14","Date_to_asso": "2020-01-28","is_active": 1},]
+
