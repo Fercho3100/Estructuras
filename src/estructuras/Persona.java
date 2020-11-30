@@ -5,31 +5,37 @@
  */
 package estructuras;
 
+import java.util.Date;
+
 /**
  *
  * @author Naomi Villalobos
  */
 public class Persona {
-    
-    String name,last_name,rol,DateWork,Date_to_asso;
-    int id,admin,date,is_active;
-    double amount_gross;
 
-    public Persona(int id, String name,String last_name,int admin,String rol, double amount_gross, String DateWork ,String Date_to_asso,int is_active) {
+    int id;
+    String name, last_name, rol, password, DateWork, Date_to_asso;
+    boolean admin;
+    double gross_amount;
+
+    //  public Persona(String name, String last_name, String rol, String username, String password, boolean admin, double gross_amount, Date DateWork, Date Date_to_asso) {
+    //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    //}
+    public Persona(int id, String name, String last_name, String rol, String password, boolean admin, double gross_amount, String DateWork, String Date_to_asso) {
         this.id = id;
         this.name = name;
         this.last_name = last_name;
-        this.admin = admin;
         this.rol = rol;
-        this.amount_gross = amount_gross;
-        this.DateWork =DateWork;
-        this.Date_to_asso =Date_to_asso;
-        this.is_active = is_active;
+        this.password = password;
+        this.admin = admin;
+        this.gross_amount = gross_amount;
+        this.DateWork = DateWork;
+        this.Date_to_asso = Date_to_asso;
     }
 
     @Override
     public String toString() {
-        return "Persona{" + "name=" + name + ", last_name=" + last_name + ", rol=" + rol + ", DateWork=" + DateWork + ", Date_to_asso=" + Date_to_asso + ", id=" + id + ", admin=" + admin + ", date=" + date + ", is_active=" + is_active + ", amount_gross=" + amount_gross + '}';
+        return "Persona{" + "id=" + id + ", name=" + name + ", last_name=" + last_name + ", rol=" + rol + ", password=" + password + ", DateWork=" + DateWork + ", Date_to_asso=" + Date_to_asso + ", admin=" + admin + ", gross_amount=" + gross_amount + '}';
     }
 
     public String getName() {
@@ -80,40 +86,28 @@ public class Persona {
         this.id = id;
     }
 
-    public int getAdmin() {
+    public Boolean getAdmin() {
         return admin;
     }
 
-    public void setAdmin(int admin) {
+    public void setAdmin(Boolean admin) {
         this.admin = admin;
     }
 
-    public int getDate() {
-        return date;
+    public double getGross_amount() {
+        return gross_amount;
     }
 
-    public void setDate(int date) {
-        this.date = date;
+    public void setGross_amount(double gross_amount) {
+        this.gross_amount = gross_amount;
     }
 
-    public int getIs_active() {
-        return is_active;
+    public String getPassword() {
+        return password;
     }
 
-    public void setIs_active(int is_active) {
-        this.is_active = is_active;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public double getAmount_gross() {
-        return amount_gross;
-    }
-
-    public void setAmount_gross(double amount_gross) {
-        this.amount_gross = amount_gross;
-    }
-
-
-    
-
-    
 }
