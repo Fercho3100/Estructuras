@@ -5,6 +5,7 @@
  */
 package estructuras;
 
+import datos.Db;
 import java.util.Date;
 
 /**
@@ -12,8 +13,9 @@ import java.util.Date;
  * @author Naomi Villalobos
  */
 public class Persona {
+     Db asoDb = new Db();
 
-    int id;
+    int user_code;
     String name, last_name, rol, password, DateWork, Date_to_asso;
     boolean admin;
     double gross_amount;
@@ -21,21 +23,24 @@ public class Persona {
     //  public Persona(String name, String last_name, String rol, String username, String password, boolean admin, double gross_amount, Date DateWork, Date Date_to_asso) {
     //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     //}
-    public Persona(int id, String name, String last_name, String rol, String password, boolean admin, double gross_amount, String DateWork, String Date_to_asso) {
-        this.id = id;
+    public Persona(int user_code, String name, String last_name, String rol, 
+                   double gross_amount, String DateWork, String Date_to_asso,
+                   boolean admin,  String password) {
+        
+        this.user_code = user_code;
         this.name = name;
         this.last_name = last_name;
         this.rol = rol;
-        this.password = password;
-        this.admin = admin;
         this.gross_amount = gross_amount;
         this.DateWork = DateWork;
         this.Date_to_asso = Date_to_asso;
+        this.admin = admin;
+        this.password = password;
     }
 
     @Override
     public String toString() {
-        return "Persona{" + "id=" + id + ", name=" + name + ", last_name=" + last_name + ", rol=" + rol + ", password=" + password + ", DateWork=" + DateWork + ", Date_to_asso=" + Date_to_asso + ", admin=" + admin + ", gross_amount=" + gross_amount + '}';
+        return "Persona{" + "id=" + user_code + ", name=" + name + ", last_name=" + last_name + ", rol=" + rol + ", password=" + password + ", DateWork=" + DateWork + ", Date_to_asso=" + Date_to_asso + ", admin=" + admin + ", gross_amount=" + gross_amount + '}';
     }
 
     public String getName() {
@@ -78,15 +83,15 @@ public class Persona {
         this.Date_to_asso = Date_to_asso;
     }
 
-    public int getId() {
-        return id;
+    public int getUser_code() {
+        return user_code;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUser_code(int user_code) {
+        this.user_code = user_code;
     }
 
-    public Boolean getAdmin() {
+    public boolean getAdmin() {
         return admin;
     }
 
@@ -101,8 +106,8 @@ public class Persona {
     public void setGross_amount(double gross_amount) {
         this.gross_amount = gross_amount;
     }
-
-    public String getPassword() {
+    
+        public String getPassword() {
         return password;
     }
 

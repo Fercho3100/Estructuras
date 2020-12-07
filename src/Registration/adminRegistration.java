@@ -19,6 +19,7 @@ import com.toedter.calendar.JDateChooser;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+ //nuevo
 
 public class adminRegistration extends javax.swing.JFrame {
 
@@ -86,7 +87,7 @@ public class adminRegistration extends javax.swing.JFrame {
 
         errCount = errCount
                 + checkBlankTextInput(jTextField_usercode, jLabel_usercode,
-                        this.defTextName, this.errText)
+                        this.defTextUsercode, this.errText)
                 + checkBlankTextInput(jTextField_name, jLabel_name,
                         this.defTextName, this.errText)
                 + checkBlankTextInput(jTextField_lastname, jLabel_lastname,
@@ -99,10 +100,7 @@ public class adminRegistration extends javax.swing.JFrame {
                         this.defTextStartDate, this.errText)
                 + checkBlankCalInput(jDateChooser_asoDate, jLabel_asoDate,
                         this.defTextAsoDate, this.errText);
-//                + checkBlankTextInput(jTextField_username, jLabel_username,
-//                        this.defTextName, this.errText)
-//                + checkBlankTextInput(jTextField_password, jLabel_password,
-//                        this.defTextName, this.errText);
+
 
         return errCount == 0;
     }
@@ -281,8 +279,10 @@ public class adminRegistration extends javax.swing.JFrame {
             }
         });
 
+        jDateChooser_asoDate.setDateFormatString("yyyy-MM-dd");
         jDateChooser_asoDate.setNextFocusableComponent(jTextField_username);
 
+        jDateChooser_startDate.setDateFormatString("yyyy-MM-dd");
         jDateChooser_startDate.setNextFocusableComponent(jDateChooser_asoDate);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -293,31 +293,36 @@ public class adminRegistration extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(45, 45, 45)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField_usercode, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel_usercode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel_lastname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField_name)
-                            .addComponent(jTextField_lastname)
-                            .addComponent(jLabel_rol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField_rol, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(134, 134, 134)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel_grossAmount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel_startDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel_asoDate, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                            .addComponent(jTextField_grossAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser_asoDate, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser_startDate, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel_password, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField_password, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField_username, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel_username, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(checkbox_isAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jTextField_usercode, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel_lastname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextField_name)
+                                        .addComponent(jTextField_lastname)
+                                        .addComponent(jTextField_rol, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel_rol, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(105, 105, 105)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel_grossAmount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel_startDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel_asoDate, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                                    .addComponent(jTextField_grossAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jDateChooser_asoDate, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jDateChooser_startDate, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel_password, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextField_password, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextField_username, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel_username, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(checkbox_isAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel_usercode, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(button_clear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -402,19 +407,59 @@ public class adminRegistration extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button_sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_sendActionPerformed
+        
         int ingresaInfo;
+        
         Date asoDate = jDateChooser_asoDate.getDate();
+        
+        System.out.println(asoDate);
+                
         Date startDate = jDateChooser_asoDate.getDate();
-        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
-        String strAsoDate = dateFormat.format(asoDate);
-        String strStartDate = dateFormat.format(startDate);
+        
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        
+        String strAsoDate = null;
+        
+        if(asoDate == null){
+            
+           strAsoDate = null;
+           
+        } else {
+            
+           strAsoDate = dateFormat.format(asoDate);
+        }
+        
+        String strStartDate = null;
+        
+        if(startDate == null) {
+            
+            strStartDate = null;
+            
+        } else {
+            
+            strStartDate = dateFormat.format(startDate);
+        }
 
         if (validateInputs()) {
             ingresaInfo = JOptionPane.showConfirmDialog(null, "Esta seguro de que desea continuar?");
+            
             if (ingresaInfo != JOptionPane.CANCEL_OPTION) {
+                
                 if (ingresaInfo == JOptionPane.YES_OPTION) {
-                    lista.insertar(new Persona(Integer.parseInt(jTextField_usercode.getText()), jTextField_name.getText(), jTextField_lastname.getText(), jTextField_rol.getText(),jTextField_password.getText(), checkbox_isAdmin.getState(),
-                            Integer.parseInt(jTextField_grossAmount.getText()), strStartDate, strAsoDate));
+                    
+                    System.out.println("checkbox state: "+checkbox_isAdmin.getState());
+                                     
+                    lista.insertar(new Persona(Integer.parseInt(jTextField_usercode.getText()), 
+                                jTextField_name.getText(), 
+                                jTextField_lastname.getText(), 
+                                jTextField_rol.getText(),
+                                Double.parseDouble(jTextField_grossAmount.getText()),
+                                strStartDate, 
+                                strAsoDate,
+                                checkbox_isAdmin.getState(),
+                                ""));
+                    
+                    
 
                 }
                 //dispose adminRegistration
@@ -423,8 +468,6 @@ public class adminRegistration extends javax.swing.JFrame {
 
             }
         }
-
-
     }//GEN-LAST:event_button_sendActionPerformed
 
     private void button_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_clearActionPerformed
@@ -433,6 +476,7 @@ public class adminRegistration extends javax.swing.JFrame {
 
     private void checkbox_isAdminPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_checkbox_isAdminPropertyChange
 
+        
 
     }//GEN-LAST:event_checkbox_isAdminPropertyChange
 
