@@ -23,7 +23,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -46,51 +46,51 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+              <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jTextField_usercode" min="-2" pref="84" max="-2" attributes="0"/>
-                          <Component id="jLabel_name" max="32767" attributes="0"/>
-                          <Component id="jLabel_lastname" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jTextField_name" max="32767" attributes="0"/>
-                          <Component id="jTextField_lastname" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jTextField_rol" alignment="1" min="-2" pref="149" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="jLabel_rol" min="-2" pref="178" max="-2" attributes="0"/>
-                      <Component id="jLabel_usercode" alignment="0" min="-2" pref="228" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel_grossAmount" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jLabel_startDate" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jLabel_asoDate" alignment="0" pref="190" max="32767" attributes="0"/>
-                              <Component id="jTextField_grossAmount" alignment="0" min="-2" pref="149" max="-2" attributes="0"/>
-                              <Component id="jDateChooser_startDate" alignment="0" min="-2" pref="148" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel_rol" min="-2" pref="178" max="-2" attributes="0"/>
+                              <Component id="jLabel_usercode" alignment="0" min="-2" pref="228" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                  <Component id="jTextField_password" min="-2" pref="149" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jTextField_usercode" min="-2" pref="84" max="-2" attributes="0"/>
+                                      <Component id="jLabel_name" max="32767" attributes="0"/>
+                                      <Component id="jLabel_lastname" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jTextField_name" max="32767" attributes="0"/>
+                                      <Component id="jTextField_lastname" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jTextField_rol" alignment="1" min="-2" pref="149" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jLabel_grossAmount" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jLabel_startDate" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jLabel_asoDate" alignment="0" pref="190" max="32767" attributes="0"/>
+                                  <Component id="jTextField_grossAmount" alignment="0" min="-2" pref="149" max="-2" attributes="0"/>
+                                  <Component id="jDateChooser_startDate" alignment="0" min="-2" pref="148" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
                                       <Component id="button_clear" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="button_send" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jDateChooser_asoDate" min="-2" pref="148" max="-2" attributes="0"/>
+                                  <Component id="jDateChooser_asoDate" alignment="0" min="-2" pref="148" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="checkbox_isAdmin" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextField_password" min="-2" pref="149" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="checkbox_isAdmin" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="45" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="315" max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              </Group>
-              <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -141,9 +141,9 @@
                       <Component id="jLabel_rol" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jDateChooser_asoDate" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jTextField_rol" min="-2" max="-2" attributes="0"/>
+                      <Component id="jDateChooser_asoDate" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -355,9 +355,6 @@
         <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser_asoDate">
           <Properties>
             <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
-            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="default"/>
-            </Property>
           </Properties>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser_startDate">

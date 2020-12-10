@@ -8,89 +8,36 @@ package datos;
 import estructuras.Persona;
 
 import java.sql.*;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
-import datos.Affiliatedes;
-
-//import java.sql.;
 
 import javax.swing.JOptionPane;
 
-
-/**
- *
- * @author KVR
- */
 public class Db {
-    
+
     private final String dbDriver = "org.sqlite.JDBC";
-    private final String dbPath = "C:/Users/krudin/Documents/EstructurasDatos/src/datos/";
-//    private final String dbPath = "src/datos";
+    private final String dbPath = "C:/Users/krudin/Desktop/proyectoEstuDatos/Estructuras/src/datos/";
     private final String dbName = "aso.db";
     private final String dbUrl = "jdbc:sqlite:" + dbPath + dbName;
-    
-    public void createAffRecord(Integer user_code, String name, String lastName, String rol,
-                Double gross_amount, String date_work, String dato_to_asso, 
-                Boolean admin, String pw) {
-        
-        Connection conn = dbConnect();
-      
-        PreparedStatement p = null;
-        
-        String tableName1 = "affiliatedes";
-        
-        String insertSql = "INSERT INTO " + tableName1 + " (" 
-                                + "user_code, "
-                                + "name, last_name, rol, "
-                                + "gross_amount, date_work, date_to_asso, "
-                                + "admin, password) " +
-                           "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-      
-        try {
-              p = conn.prepareStatement(insertSql);
-              
-              p.setInt(1, user_code);
-              p.setString(2, name);
-              p.setString(3, lastName);
-              p.setString(4, rol);
-              p.setDouble(5, gross_amount);
-              p.setString(6, date_work);
-              p.setString(7, dato_to_asso);
-              p.setBoolean(8, admin);
-              p.setString(9, pw);
 
-              
-              p.executeUpdate();
-              
-              p.close();
-              conn.close();
+    String affiliates = "affiliatedes";
 
-        } catch(SQLException s) {
-            System.out.println("Exception read 1: " + s);
-        }
-    }
-    
     public void createAffRecord(Persona persona) {
-        
+
         Connection conn = dbConnect();
-      
+
         PreparedStatement p = null;
-        
+
         String tableName1 = "affiliatedes";
-        
-        String insertSql = "INSERT INTO " + tableName1 + " (" 
-                                + "user_code, "
-                                + "name, last_name, rol, "
-                                + "gross_amount, date_work, date_to_asso, "
-                                + "admin, password) " +
-                           "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-      
+
+        String insertSql = "INSERT INTO " + tableName1 + " ("
+                + "user_code, "
+                + "name, last_name, rol, "
+                + "gross_amount, date_work, date_to_asso, "
+                + "admin, password) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
         try {
-            
+
             System.out.println(persona.getName());
 
             p = conn.prepareStatement(insertSql);
@@ -108,25 +55,133 @@ public class Db {
             p.executeUpdate();
 
             p.close();
-              conn.close();
+            conn.close();
 
-        } catch(SQLException s) {
+        } catch (SQLException s) {
             System.out.println("Exception read 1: " + s);
         }
     }
-   
     
-    public void updateAffPassword(String name, String lastName, String pw) {
+        public Persona readAffRecord(int code) {      
+        //create a persona by reading record and return a row
+        
+        estructuras.Persona e = null;
+        
+        Connection conn = dbConnect();
+      
+        PreparedStatement p = null;
+        
+        ResultSet r = null;
+        
+        String tableName = "affiliatedes";
+        
+        String selectSql = "SELECT * " +
+                            "FROM " + tableName + " "+
+                            "WHERE user_code = ? ;";
+      
+        try {
+              p = conn.prepareStatement(selectSql);
+              p.setInt(1, code);
+
+              r = p.executeQuery();
+              
+              if(r.next()) {
+                        e = new estructuras.Persona(
+                        r.getInt("user_code"),
+                        r.getString("name"),
+                        r.getString("last_name"),
+                        r.getString("rol"),
+                        r.getDouble("gross_amount"),
+                        r.getString("date_work"),
+                        r.getString("date_to_asso"),
+                        r.getBoolean("admin"),
+                        r.getString("password") 
+                        );
+//                for(int i=1; i<numCol; i++) {
+//                    System.out.println(r.getString(i)+" ,");
+//                }
+//                System.out.println();
+              } 
+              
+              r.close();
+              p.close();
+              conn.close();
+
+        } catch(SQLException s) {
+            System.out.println("Exception read affiliate record 1: " + s);
+        }
+        return e;
+    }
+
+    public Boolean cabezaEmpty() {
+        boolean limpio = false;
+
+        Connection conn = dbConnect();
+
+        ResultSet resultado = null;
+
+        PreparedStatement pst = null;
+
+        try {
+
+            String sql = "SELECT * FROM affiliatedes ";
+
+            pst = conn.prepareStatement(sql);
+
+            resultado = pst.executeQuery();
+
+            if (!resultado.next()) {
+
+                limpio = true;
+
+            }
+
+            pst.close();
+            conn.close();
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(null, "" + e.getMessage());
+
+        }
+
+        return limpio;
+    }
+
+    public boolean uniquenessCheck(int code) {
+
+        boolean isUnique = false;
+        Connection conn = dbConnect();
+        ResultSet resultado = null;
+        PreparedStatement pst = null;
+
+        try {
+            String sql = "SELECT * FROM affiliatedes where user_code = ?";
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, code);
+            resultado = pst.executeQuery();
+
+            if (!resultado.next()) {
+                isUnique = true;
+            }
+
+            pst.close();
+            conn.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "" + e.getMessage());
+
+        }
+
+        return isUnique;
+
+    }
+
+    public void updateAffPassword(Persona e) {
         
         Connection conn = dbConnect();
         
-        ArrayList<datos.Affiliatedes> record = new ArrayList<>();
-        
-        record = getAffDetails(name, lastName);
-        
-        int id = record.get(0).getIdAffiliatedes();
-        
-        String db_password = record.get(0).getPassword();
+        String pw = e.getPassword();
+        int user_code = e.getUser_code();
       
         PreparedStatement p = null;
 
@@ -134,9 +189,13 @@ public class Db {
         
         String updateSql = "UPDATE " + tableName + " " +
                             "SET " + "password = ? " +
-                            "WHERE " + "id_" + tableName +" = ? ;";
+                            "WHERE " + "user_code = ? ;";
       
         try {
+            
+            //temporary until have logic for reading stored pw
+            
+            String db_password = null;
             
             if (db_password.equals(pw)) {
                 
@@ -147,7 +206,7 @@ public class Db {
                 p = conn.prepareStatement(updateSql);
                 
                 p.setString(1, pw);
-                p.setInt(2, id);
+                p.setInt(2, user_code);
 
                 p.executeUpdate();
 
@@ -161,297 +220,159 @@ public class Db {
         } 
     }
     
-    public ArrayList<datos.Affiliatedes> readAllAffDetails() {
-        
+    public int[] getUserCodes() {
         Connection conn = dbConnect();
-      
-        PreparedStatement p = null;
         
-        ResultSet r = null;
+        ResultSet resultado = null;
+        
+        PreparedStatement pst = null;
         
         String tableName = "affiliatedes";
         
-        String selectAllSql = "SELECT * FROM " + tableName;
+        int length = getRowCount(tableName);
         
-        ArrayList<datos.Affiliatedes> recordList = new ArrayList<>();
-      
         try {
-              p = conn.prepareStatement(selectAllSql);
-              p.clearParameters();
+                  
+            String sql = "SELECT user_code FROM affiliatedes";
+            
+            pst = conn.prepareStatement(sql);
+            
+            resultado = pst.executeQuery();          
+            
+            int[] r = new int[length];
+            
+            int i = 0;
+            
+            if(length >0) {
+                while(resultado.next() &&  i < length){
+                    r[i] = resultado.getInt("user_code");
+                    i++;
+                }
+            } else {
+                r = new int[]{};
+            }
 
-              r = p.executeQuery();
-              ResultSetMetaData rmd = r.getMetaData();
-              int numCol = rmd.getColumnCount();
-              
-              while(r.next()) {
-                datos.Affiliatedes record = new datos.Affiliatedes(
-                        r.getInt("id_"+tableName),
-                        r.getInt("user_code"),
-                        r.getString("name"),
-                        r.getString("last_name"),
-                        r.getString("rol"),
-                        r.getDouble("gross_amount"),
-                        r.getString("date_work"),
-                        r.getString("date_to_asso"),
-                        r.getBoolean("admin"),
-                        r.getString("password")
-                        );
-                recordList.add(record);
-//                for(int i=1; i<numCol; i++) {
-//                    System.out.println(r.getString(i)+" ,");
-//                }
-//                System.out.println();
-              }
-              
-              r.close();
-              p.close();
-              conn.close();
+            resultado.close();
+            pst.close();
+            conn.close();
+            
+            return r;
 
-        } catch(SQLException s) {
-            System.out.println("Exception read 1: " + s);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "user codes " + e.getMessage());
+            return new int[]{};
         }
-        return recordList;
-    }
-        
-    
-  
-    public String readAffPassword(String name, String lastName) {
-
-        ArrayList<datos.Affiliatedes> record = new ArrayList<>();
-        
-        record = getAffDetails(name, lastName);
-        
-        
-        String pw = record.get(0).getPassword();
-      
-        return pw;
     }
     
-    
-        public int readAffCode(int userCode) {
-
-        ArrayList<datos.Affiliatedes> record = new ArrayList<>();
-        
-        record = getAffDetails(userCode);
-        
-        
-        int code = record.get(0).getUserCode();
-      
-        return code;
-    }
-    
-    
-    public Integer validateCredentials(String un, String pw) {
+    public int getRowCount(String tableName) {
         
         Connection conn = dbConnect();
-      
-        PreparedStatement p = null;
         
-        ResultSet r = null;
+        ResultSet resultado = null;
+        
+        PreparedStatement pst = null;
+        
+        int count = 0;
+        
+        try {
+            String sql = "SELECT COUNT(*) FROM " + tableName + " ;";
+
+            pst = conn.prepareStatement(sql);
+            
+            resultado = pst.executeQuery();
+            
+            count = resultado.getInt("COUNT(*)");
+            
+            resultado.close();
+            pst.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            
+            JOptionPane.showMessageDialog(null, "" + e.getMessage());
+        }
+        return count;
+    }
+    
+    public boolean validateCredentials(int userCode, String pw) {
+        boolean valid = false;
+        Connection conn = dbConnect();
+      
+        PreparedStatement pst = null;
+        
+        ResultSet resultado = null;
         
         String tableName = "affiliatedes";
         
-        String selectSql = "SELECT "+"id_" + tableName + " " +                         
+        String selectSql = "SELECT "+"*" + " " +                         
                            "FROM " + tableName + " " +
-                           "WHERE " +"userCode = ? " +
+                           "WHERE " +"user_code = ? " +
                            "AND " + "password = ? ;";
         
         int value = -1;
       
         try {
-              p = conn.prepareStatement(selectSql);
-              p.setString(1, un);
-              p.setString(2, pw);
+            pst = conn.prepareStatement(selectSql);
+            pst.setInt(1, userCode);
+            pst.setString(2, pw);
 
-              r = p.executeQuery();
-              ResultSetMetaData rmd = r.getMetaData();
-              int numCol = rmd.getColumnCount();
-              
-              if(r.next()) {
-                value = r.getInt("id_" + tableName);
-//                for(int i=1; i<numCol; i++) {
-//                    System.out.println(r.getString(i)+" ,");
-//                }
-//                System.out.println();
-              } else {
-                  JOptionPane.showMessageDialog(null, "Credenciales invalidas.");
-              }
-              
-              r.close();
-              p.close();
-              conn.close();
+            resultado = pst.executeQuery();
+
+            if (resultado.next()) {
+                value = resultado.getInt("id_" + "affiliates");
+            valid = true;
+            } else {
+                JOptionPane.showMessageDialog(null, "Codigo de usuario o contraseña son invalidas.");
+          
+            }
+
+            resultado.close();
+            pst.close();
+            conn.close();
 
         } catch(SQLException s) {
-            System.out.println("Exception read 1: " + s);
+            System.out.println("Exception read validate 1: " + s);
         }
-        return value;
+        return valid;
     }
     
-    public ArrayList<datos.Affiliatedes> getAffDetails() {
-        
+    public boolean getAdminFlag(int userCode) {
+        boolean admin = false;
         Connection conn = dbConnect();
       
-        PreparedStatement p = null;
+        PreparedStatement pst = null;
         
-        ResultSet r = null;
-
+        ResultSet resultado = null;
+        
         String tableName = "affiliatedes";
         
-        String selectSql = "SELECT * " +                           
-                           "FROM " + tableName + " " +" ;";
-
-        ArrayList<datos.Affiliatedes> recordList = new ArrayList<>();
-      
-        try {
-              p = conn.prepareStatement(selectSql);
-
-              r = p.executeQuery();
-              
-              ResultSetMetaData rmd = r.getMetaData();
-//              int numCol = rmd.getColumnCount();
-              
-              while(r.next()) {
-                datos.Affiliatedes record = new datos.Affiliatedes(
-                        r.getInt("id_"+tableName),
-                        r.getInt("user_code"),
-                        r.getString("name"),
-                        r.getString("last_name"),
-                        r.getString("rol"),
-                        r.getDouble("gross_amount"),
-                        r.getString("date_work"),
-                        r.getString("date_to_asso"),
-                        r.getBoolean("admin"),
-                        r.getString("password")
-                        );
-                recordList.add(record);
-//                for(int i=1; i<numCol; i++) {
-//                    System.out.println(r.getString(i)+" ,");
-//                }
-//                System.out.println();
-              }
-              
-              r.close();
-              p.close();
-              conn.close();
-
-        } catch(SQLException s) {
-            System.out.println("Exception read 1: " + s);
-        }
-        return recordList;
-    }
-    
-    public ArrayList<datos.Affiliatedes> getAffDetails(int id) {
-        
-        Connection conn = dbConnect();
-      
-        PreparedStatement p = null;
-        
-        ResultSet r = null;
-
-        String tableName = "affiliatedes";
-        
-        String selectSql = "SELECT * " +                           
+        String selectSql = "SELECT "+"admin" + " " +                         
                            "FROM " + tableName + " " +
-                           "WHERE " + "id_"+ tableName + " = ? ;";
-
-        ArrayList<datos.Affiliatedes> recordList = new ArrayList<>();
-      
-        try {
-              p = conn.prepareStatement(selectSql);
-              p.setInt(1, id);
-
-              r = p.executeQuery();
-              ResultSetMetaData rmd = r.getMetaData();
-//              int numCol = rmd.getColumnCount();
-              
-              while(r.next()) {
-                datos.Affiliatedes record = new datos.Affiliatedes(
-                        r.getInt("id_"+tableName),
-                        r.getInt("user_code"),
-                        r.getString("name"),
-                        r.getString("last_name"),
-                        r.getString("rol"),
-                        r.getDouble("gross_amount"),
-                        r.getString("date_work"),
-                        r.getString("date_to_asso"),
-                        r.getBoolean("admin"),
-                        r.getString("password")
-                        );
-                recordList.add(record);
-//                for(int i=1; i<numCol; i++) {
-//                    System.out.println(r.getString(i)+" ,");
-//                }
-//                System.out.println();
-              }
-              
-              r.close();
-              p.close();
-              conn.close();
-
-        } catch(SQLException s) {
-            System.out.println("Exception read 1: " + s);
-        }
-        return recordList;
-    }
-    
-    public ArrayList<datos.Affiliatedes> getAffDetails(String name, String lastName) {
-        
-        Connection conn = dbConnect();
-      
-        PreparedStatement p = null;
-        
-        ResultSet r = null;
-
-        String tableName = "affiliatedes";
-        
-        String selectSql = "SELECT * " +                           
-                           "FROM " + tableName + " " +
-                           "WHERE name = ? " +
-                           "AND last_name = ?;";
+                           "WHERE " +"user_code = ? ";
         
         int value = -1;
-
-        ArrayList<datos.Affiliatedes> recordList = new ArrayList<>();
       
         try {
-              p = conn.prepareStatement(selectSql);
-              p.setString(1, name);
-              p.setString(2, lastName);
+            pst = conn.prepareStatement(selectSql);
+            pst.setInt(1, userCode);
 
-              r = p.executeQuery();
-              ResultSetMetaData rmd = r.getMetaData();
-//              int numCol = rmd.getColumnCount();
-              
-              while(r.next()) {
-                datos.Affiliatedes record = new datos.Affiliatedes(
-                        r.getInt("id_"+tableName),
-                        r.getInt("user_code"),
-                        r.getString("name"),
-                        r.getString("last_name"),
-                        r.getString("rol"),
-                        r.getDouble("gross_amount"),
-                        r.getString("date_work"),
-                        r.getString("date_to_asso"),
-                        r.getBoolean("admin"),
-                        r.getString("password")
-                        );
-                recordList.add(record);
-//                for(int i=1; i<numCol; i++) {
-//                    System.out.println(r.getString(i)+" ,");
-//                }
-//                System.out.println();
-              }
-              
-              r.close();
-              p.close();
-              conn.close();
+            resultado = pst.executeQuery();
+
+            if (resultado.next()) {
+                value = resultado.getInt("id_" + "affiliates");
+            admin = true;
+            } 
+
+            resultado.close();
+            pst.close();
+            conn.close();
 
         } catch(SQLException s) {
-            System.out.println("Exception read 1: " + s);
+            System.out.println("Exception read validate 1: " + s);
         }
-        return recordList;
+        return admin;
     }
-    
+       
     public void updateRecord() {
         
     }
@@ -477,8 +398,6 @@ public class Db {
         } 
         
         return c;   
-    }
-    
-    
+    }   
     
 }

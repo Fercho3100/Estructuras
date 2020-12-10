@@ -1,20 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package estructuras;
 
-/**
- *
- * @author Naomi Villalobos
- */
+import datos.Db;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 public class Nodo {
+
     private Nodo next;
     private Persona dato;
 
+    public Nodo() {
+    }
+
     public Nodo(Persona dato) {
         this.dato = dato;
+    }
+
+    public Nodo getLast(Nodo node) {
+        Nodo lastNode = node;
+        if (lastNode.getNext() != null) {
+            return getLast(lastNode.getNext());
+        } else {
+            return lastNode;
+        }
     }
 
     @Override
@@ -37,6 +48,5 @@ public class Nodo {
     public void setDato(Persona dato) {
         this.dato = dato;
     }
-    
-    
+
 }

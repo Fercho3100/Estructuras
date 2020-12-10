@@ -2,19 +2,14 @@ package Bienvenida;
 
 import Dashboard.dashboardAdmin;
 import Dashboard.dashboardUser;
+import datos.Db;
 import estructuras.Lista;
-import estructuras.Persona;
 import java.awt.event.KeyEvent;
 
 public class login extends javax.swing.JFrame {
 
-    Lista lista = new Lista();
-        
-    /**
-     * Creates new form login
-     */
     public login() {
-        initComponents();      
+        initComponents();
     }
     private boolean isValid = false;
 
@@ -36,6 +31,7 @@ public class login extends javax.swing.JFrame {
         i_userCode1 = new javax.swing.JTextField();
         jPasswordField2 = new javax.swing.JPasswordField();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel4 = new javax.swing.JLabel();
 
         jPasswordField1.setText("jPasswordField1");
 
@@ -86,6 +82,15 @@ public class login extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 255, 255));
+        jLabel4.setText("Registrarse");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -100,16 +105,17 @@ public class login extends javax.swing.JFrame {
                 .addGap(110, 110, 110))
             .addComponent(jSeparator1)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(186, 186, 186)
-                        .addComponent(btn_enviar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(46, 46, 46)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(186, 186, 186)
+                .addComponent(btn_enviar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(27, 27, 27))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,8 +132,10 @@ public class login extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addComponent(btn_enviar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_enviar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addGap(38, 38, 38))
         );
 
@@ -139,9 +147,7 @@ public class login extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -152,20 +158,6 @@ public class login extends javax.swing.JFrame {
     }
 
     //Valida las credenciales y setea el flag de valido para desplegar la pantalla correcta
-    public int validateDashboard() {
-
-        char[] pswd = jPasswordField2.getPassword();
-        String pass = new String(pswd);
-
-        if (this.lista.validarCodigo(Integer.parseInt(i_userCode1.getText()), pass) == true) {
-            return 1;
-
-        } else if (this.lista.validarCodigo(Integer.parseInt(i_userCode1.getText()), pass) == false) {
-            return 2;
-        }
-        return Integer.MAX_VALUE;
-    }
-
     //Resetea los fields a nulos
     private void clearFields() {
         i_userCode1.setText("");
@@ -174,17 +166,39 @@ public class login extends javax.swing.JFrame {
     }
 
     private void btn_enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_enviarActionPerformed
-dashboardAdmin dashAdmin = new dashboardAdmin();
+        Lista lista = new Lista();
+        Db asoDb = new Db();
+        dashboardAdmin dashAdmin = new dashboardAdmin();
         dashboardUser dashUser = new dashboardUser();
-     if (validateDashboard() == 1) {
-            dispose();
-            dashAdmin.setVisible(true);
 
-        } else if (validateDashboard() == 2) {
-            dispose();
-            dashUser.setVisible(true);
+        char[] pswd = jPasswordField2.getPassword();
+        String pass = new String(pswd);
+        int code = Integer.parseInt(i_userCode1.getText());
+
+        if (lista.validarCredenciales(code, pass)) {
+            if (lista.esAdmin(code)) {
+                dispose();
+                dashAdmin.setVisible(true);
+            } else {
+                dispose();
+                dashUser.setVisible(true);
+            }
+        } else {
+            clearFields();
         }
-    
+
+        //if (asoDb.validateCredentials(code, pass)) {
+        //  if (asoDb.getAdminFlag(code)) {
+        //      dispose();
+        //      dashAdmin.setVisible(true);
+        //  } else {
+        //     dispose();
+        //     dashUser.setVisible(true);
+        //  }
+        //  }
+        // else {
+        // clearFields();}
+
     }//GEN-LAST:event_btn_enviarActionPerformed
 
     private void i_userCode1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_i_userCode1ActionPerformed
@@ -214,6 +228,12 @@ dashboardAdmin dashAdmin = new dashboardAdmin();
             evt.consume();
         }        // TODO add your handling code here:
     }//GEN-LAST:event_i_userCode1KeyPressed
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        pre_auth aut = new pre_auth();
+        setVisible(false);
+        aut.setVisible(true);
+    }//GEN-LAST:event_jLabel4MouseClicked
 
     /**
      * @param args the command line arguments
@@ -250,6 +270,7 @@ dashboardAdmin dashAdmin = new dashboardAdmin();
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
