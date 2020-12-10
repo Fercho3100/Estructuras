@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 public class pre_auth extends javax.swing.JFrame {
 
-    Lista lista = new Lista();
+    
 
     public pre_auth() {
         initComponents();
@@ -146,13 +146,15 @@ public class pre_auth extends javax.swing.JFrame {
     }//GEN-LAST:event_i_codigoActionPerformed
 
     private void btn_enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_enviarActionPerformed
+Lista lista = new Lista();
+int code = Integer.parseInt(i_codigo.getText());
 
-        password_setup pwsetup = new password_setup();
-       // if (lista.validarCodigo(Integer.parseInt(i_codigo.getText())) == true) {
-         //   JOptionPane.showMessageDialog(null, "Puede proceder");
-       // }
-       // setVisible(false);
-       // pwsetup.setVisible(true);
+if (lista.validarCodigo(code)){
+    
+    JOptionPane.showMessageDialog(null, "Persona ha sido ingresada al sistema.");
+
+}
+
     }//GEN-LAST:event_btn_enviarActionPerformed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked

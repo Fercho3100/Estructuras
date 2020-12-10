@@ -5,6 +5,7 @@
  */
 package Registration;
 
+import Dashboard.dashboardAdmin;
 import estructuras.Lista;
 
 import java.awt.Color;
@@ -24,8 +25,6 @@ import java.util.Date;
 public class adminRegistration extends javax.swing.JFrame {
 
     Lista lista = new Lista();
-
-
 
     Color errColor = Color.red;
 
@@ -370,7 +369,7 @@ public class adminRegistration extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button_sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_sendActionPerformed
-        Db asoDb = new Db();
+dashboardAdmin dashadmin = new dashboardAdmin();
         int ingresaInfo;
 
         Date asoDate = jDateChooser_asoDate.getDate();
@@ -379,7 +378,7 @@ public class adminRegistration extends javax.swing.JFrame {
 
         Date startDate = jDateChooser_asoDate.getDate();
 
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         String strAsoDate = null;
 
@@ -404,29 +403,25 @@ public class adminRegistration extends javax.swing.JFrame {
         }
 
         if (validateInputs()) {
-            ingresaInfo = JOptionPane.showConfirmDialog(null, "Esta seguro de que desea continuar?");
+            ingresaInfo = JOptionPane.showConfirmDialog(null, "Esta seguro de que desea continuar?", "Confirmacion", JOptionPane.YES_NO_OPTION);
 
-            if (ingresaInfo != JOptionPane.CANCEL_OPTION) {
+            if (ingresaInfo != JOptionPane.NO_OPTION) {
 
                 if (ingresaInfo == JOptionPane.YES_OPTION) {
 
-                    if (!asoDb.uniquenessCheck(Integer.parseInt(jTextField_usercode.getText()))) {
-                        JOptionPane.showConfirmDialog(null, "Persona con el codigo " + Integer.parseInt(jTextField_usercode.getText()) + " ya existe en el sistema.");
-                    } else {
-                        lista.insertar(new Persona(Integer.parseInt(jTextField_usercode.getText()),
-                                jTextField_name.getText(),
-                                jTextField_lastname.getText(),
-                                jTextField_rol.getText(),
-                                Double.parseDouble(jTextField_grossAmount.getText()),
-                                strStartDate,
-                                strAsoDate,
-                                checkbox_isAdmin.getState(),
-                                ""));
-                    }
+                    lista.insertar(new Persona(Integer.parseInt(jTextField_usercode.getText()),
+                            jTextField_name.getText(),
+                            jTextField_lastname.getText(),
+                            jTextField_rol.getText(),
+                            Double.parseDouble(jTextField_grossAmount.getText()),
+                            strStartDate,
+                            strAsoDate,
+                            checkbox_isAdmin.getState(),
+                            ""));
 
                 }
                 dispose();
-                //future - return to dashboardAdmin
+                dashadmin.setVisible(true);
 
             }
         }

@@ -6,71 +6,59 @@ import datos.Db;
 
 public class Lista {
 
-     Db asoDb = new Db();
+    Db asoDb = new Db();
     private Nodo cabeza;
-    
-    public Lista() {       
-        //construct list - call db and add nodes       
+
+    public Lista() {
+        //construct list - call db and adds nodes       
         int[] code = asoDb.getUserCodes();
-       
-        if(code.length == 0) {
-            
+
+        if (code.length == 0) {
+
             cabeza = new Nodo(null);
-            
         } else {
-            
             Persona e = new Persona();
-
             e = asoDb.readAffRecord(code[0]);
-
             cabeza = new Nodo(e);
-        
-            for(int i = 1; i < code.length; i++) {
-
+            for (int i = 1; i < code.length; i++) {
                 Persona c = new Persona();
-
                 c = asoDb.readAffRecord(code[i]);
-
                 agregarNodo(c);
             }
         }
-        
     }
 
     private void agregarNodo(Persona db_e) {
 
-        if(cabeza == null) {
-            
+        if (cabeza == null) {
+
             cabeza = new Nodo(db_e);
-            
         }
-        
         Nodo temp = new Nodo(db_e);
-        
+
         Nodo current = cabeza;
-        
-        while(current.getNext() != null) {
-            
+
+        while (current.getNext() != null) {
+
             current = current.getNext();
-            
         }
-        
+
         current.setNext(temp);
     }
-    
-    public void insertar(Persona e) {
-        
-        if(asoDb.uniquenessCheck(e.getUser_code())) {
 
-            if (cabeza == null) {//op1
-                
+    public void insertar(Persona e) {
+
+        if (asoDb.uniquenessCheck(e.getUser_code())) {
+
+            if (cabeza == null) {
+
                 cabeza = new Nodo(e);
 
                 Db asoDb = new Db();
 
                 asoDb.createAffRecord(e);
 
-                JOptionPane.showMessageDialog(null, "Persona ha sido ingresada al sistema.");
+                JOptionPane.showMessageDialog(null, "Persona ha sido ingresada al sistema.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
             } else {
 
@@ -78,11 +66,7 @@ public class Lista {
 
                 boolean exist = false;
 
-                while (auxi != null && exist == false) {//valida que la pila no este vacia y se mantiene falsa hasta encontrar una coincidencia
-
-//                    System.out.println(cabeza.getDato().getUser_code());
-//                    System.out.println(cabeza.getNext());
-
+                while (auxi != null && exist == false) {
                     if (exist == false) {
 
                         if (e.getUser_code() < cabeza.getDato().getUser_code()) {
@@ -117,18 +101,15 @@ public class Lista {
 
                             exist = true;
                         }
-
-                        JOptionPane.showMessageDialog(null, "Persona ha sido ingresada al sistema.");
+                        JOptionPane.showMessageDialog(null, "Persona ha sido ingresada al sistema.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             }
         } else {
-            
-            JOptionPane.showMessageDialog(null, "Este codigo no esta unica."); 
-            
+            JOptionPane.showConfirmDialog(null, "Este código ya existe en el sistema.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-        
+
     @Override
     public String toString() {
         Nodo aux = cabeza;
@@ -156,54 +137,84 @@ public class Lista {
                     auxi = auxi.getNext();//avanza de nodo
                 }
             }
-
         }
-
     }
 
-    public Boolean validarCredenciales(int cod, String password) {
-        
-         Nodo auxi = cabeza;
+    public Boolean validarCodigo(int cod) {
+
+        Nodo auxi = cabeza;
         boolean existe = false;
 
         if (asoDb.cabezaEmpty()) {
-            
-            JOptionPane.showMessageDialog(null, "No tenemos record de su usario.");
-            
+
+            JOptionPane.showMessageDialog(null, "No tenemos record de su usario.", "Error", JOptionPane.ERROR_MESSAGE);
+
             existe = false;
-      
+
         } else {
-        while (auxi != null && existe == false) {
-            if (auxi.getDato().getUser_code() == cod  && auxi.getDato().getPassword().equals(password)) {
-                
-                existe = true;    
-            }
-            else {
+            while (auxi != null && existe == false) {
+                if (auxi.getDato().getUser_code() == cod) {
+                    existe = true;
+                } else {
+
                     auxi = auxi.getNext();//avanza de nodo
                 }
-        } 
-        
-    }
+            }
+        }
         return existe;
     }
-    
-      public Boolean esAdmin(int cod) {
-        int parar = 0;
-         Nodo auxi = cabeza;
-        boolean admin = false;
 
- 
-        while (auxi != null && parar != 1 ) {
-            if (auxi.getDato().getUser_code() == cod) {
-                
-                admin = auxi.getDato().getAdmin();
-                parar = 1;
-            }
-            else {
+    public Boolean validarContrasena(int cod, String password) {
+        Nodo auxi = cabeza;
+        boolean existe = false;
+
+        if (!validarCodigo(cod)) {
+            JOptionPane.showMessageDialog(null, "Se ha presentado un error de autenticacion con su codigo o contraseña" + "\n"
+                    + "Por favor contacte al administrador del sistema.", "Error", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+            while (auxi != null && existe == false) {
+                if (auxi.getDato().getUser_code() == cod) {
+                    String pw = auxi.getDato().getPassword();
+
+                    if (pw == null) {
+                        JOptionPane.showMessageDialog(null, "Su contraseña no ha sido seteada." + "\n"
+                                + "Si desea setearla, dirijase al link de Cambiar Contraseña", "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
+
+                    } else if (password.equals(pw)) {
+                        existe = true;
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Se ha presentado un error de autenticacion con su codigo o contraseña" + "\n"
+                                + "Por favor contacte al administrador del sistema.", "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
+
+                } else {
                     auxi = auxi.getNext();
                 }
+            }
+        }
+
+        return existe;
+    }
+
+    public Boolean esAdmin(int cod) {
+        int parar = 0;
+        Nodo auxi = cabeza;
+        boolean admin = false;
+
+        while (auxi != null && parar != 1) {
+            if (auxi.getDato().getUser_code() == cod) {
+
+                admin = auxi.getDato().getAdmin();
+                parar = 1;
+            } else {
+                auxi = auxi.getNext();
+            }
         }
         return admin;
     }
-     
+
 }

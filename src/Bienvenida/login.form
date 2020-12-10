@@ -52,12 +52,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="0" pref="157" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="jLabel1" min="-2" pref="211" max="-2" attributes="0"/>
-                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                          <Component id="i_userCode1" min="-2" pref="67" max="-2" attributes="0"/>
-                          <Component id="jPasswordField2" min="-2" pref="143" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jPasswordField2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="i_userCode1" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
               </Group>

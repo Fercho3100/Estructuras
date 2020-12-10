@@ -97,11 +97,10 @@ public class login extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 157, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(i_userCode1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPasswordField2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(i_userCode1, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(110, 110, 110))
             .addComponent(jSeparator1)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -167,7 +166,6 @@ public class login extends javax.swing.JFrame {
 
     private void btn_enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_enviarActionPerformed
         Lista lista = new Lista();
-        Db asoDb = new Db();
         dashboardAdmin dashAdmin = new dashboardAdmin();
         dashboardUser dashUser = new dashboardUser();
 
@@ -175,7 +173,7 @@ public class login extends javax.swing.JFrame {
         String pass = new String(pswd);
         int code = Integer.parseInt(i_userCode1.getText());
 
-        if (lista.validarCredenciales(code, pass)) {
+        if (lista.validarContrasena(code, pass)) {
             if (lista.esAdmin(code)) {
                 dispose();
                 dashAdmin.setVisible(true);
@@ -187,17 +185,6 @@ public class login extends javax.swing.JFrame {
             clearFields();
         }
 
-        //if (asoDb.validateCredentials(code, pass)) {
-        //  if (asoDb.getAdminFlag(code)) {
-        //      dispose();
-        //      dashAdmin.setVisible(true);
-        //  } else {
-        //     dispose();
-        //     dashUser.setVisible(true);
-        //  }
-        //  }
-        // else {
-        // clearFields();}
 
     }//GEN-LAST:event_btn_enviarActionPerformed
 
@@ -231,7 +218,7 @@ public class login extends javax.swing.JFrame {
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         pre_auth aut = new pre_auth();
-        setVisible(false);
+        dispose();
         aut.setVisible(true);
     }//GEN-LAST:event_jLabel4MouseClicked
 
