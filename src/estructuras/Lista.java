@@ -121,6 +121,33 @@ public class Lista {
         return s;
     }
 
+    
+    public Persona datosPersona(int code){
+        
+        Nodo auxi = cabeza;
+       Persona datos = new Persona();
+
+        if (asoDb.cabezaEmpty() || !validarCodigo(code)) {
+
+            JOptionPane.showMessageDialog(null, "No tenemos record de su usario.", "Error", JOptionPane.ERROR_MESSAGE);
+
+
+        } else {
+            while (auxi != null) {
+                if (auxi.getDato().getUser_code() == code) {
+                    datos = auxi.getDato();
+                    break;
+                } else {
+
+                    auxi = auxi.getNext();//avanza de nodo
+                }
+            }
+        }
+        return datos;
+    }
+    
+    
+    
     public void elimina(int b) {
         System.out.println("elimina");
         Nodo auxi = cabeza;
