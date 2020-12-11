@@ -2,7 +2,6 @@ package Bienvenida;
 
 import Dashboard.dashboardAdmin;
 import Dashboard.dashboardUser;
-import datos.Db;
 import estructuras.Lista;
 import java.awt.event.KeyEvent;
 
@@ -174,12 +173,13 @@ public class login extends javax.swing.JFrame {
         int code = Integer.parseInt(i_userCode1.getText());
 
         if (lista.validarContrasena(code, pass)) {
+            
             if (lista.esAdmin(code)) {
-                dispose();
                 dashAdmin.setVisible(true);
+                this.dispose();
             } else {
-                dispose();
                 dashUser.setVisible(true);
+                this.dispose();
             }
         } else {
             clearFields();
@@ -218,7 +218,8 @@ public class login extends javax.swing.JFrame {
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         pre_auth aut = new pre_auth();
-        dispose();
+        this.dispose();
+
         aut.setVisible(true);
     }//GEN-LAST:event_jLabel4MouseClicked
 

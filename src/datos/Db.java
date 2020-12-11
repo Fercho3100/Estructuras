@@ -8,7 +8,6 @@ package datos;
 import estructuras.Persona;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 

@@ -48,19 +48,12 @@ public class Lista {
 
     public void insertar(Persona e) {
 
-        if (asoDb.uniquenessCheck(e.getUser_code())) {
+        
 
             if (cabeza == null) {
 
                 cabeza = new Nodo(e);
-
-                Db asoDb = new Db();
-
-                asoDb.createAffRecord(e);
-
-                JOptionPane.showMessageDialog(null, "Persona ha sido ingresada al sistema.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-
-            } else {
+             } else {
 
                 Nodo auxi = cabeza;
 
@@ -77,7 +70,7 @@ public class Lista {
 
                             cabeza = aux;
 
-                        } else if (cabeza.getNext() == null) {//3
+                        } else if (cabeza.getNext() == null) {
 
                             cabeza.setNext(new Nodo(e));
 
@@ -88,25 +81,16 @@ public class Lista {
                             while (aux.getNext() != null && e.getUser_code() > aux.getNext().getDato().getUser_code()) {
 
                                 aux = aux.getNext();
-
                             }
-
                             Nodo temp = new Nodo(e);
 
                             temp.setNext((aux.getNext()));
 
                             aux.setNext(temp);
-
-                            asoDb.createAffRecord(e);
-
                             exist = true;
-                        }
-                        JOptionPane.showMessageDialog(null, "Persona ha sido ingresada al sistema.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                        }   
                     }
                 }
-            }
-        } else {
-            JOptionPane.showConfirmDialog(null, "Este código ya existe en el sistema.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -198,7 +182,7 @@ public class Lista {
         if (!validarCodigo(cod)) {
             JOptionPane.showMessageDialog(null, "Se ha presentado un error de autenticacion con su codigo o contraseña" + "\n"
                     + "Por favor contacte al administrador del sistema.", "Error", JOptionPane.ERROR_MESSAGE);
-
+            
         } else {
             while (auxi != null && existe == false) {
                 if (auxi.getDato().getUser_code() == cod) {

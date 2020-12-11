@@ -6,6 +6,7 @@
 package Registration;
 
 import Dashboard.dashboardAdmin;
+import com.sun.imageio.plugins.jpeg.JPEG;
 import estructuras.Lista;
 
 import java.awt.Color;
@@ -369,7 +370,9 @@ public class adminRegistration extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button_sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_sendActionPerformed
-dashboardAdmin dashadmin = new dashboardAdmin();
+
+        dashboardAdmin dashadmin = new dashboardAdmin();
+        Db asoDb = new Db();
         int ingresaInfo;
 
         Date asoDate = jDateChooser_asoDate.getDate();
@@ -408,6 +411,11 @@ dashboardAdmin dashadmin = new dashboardAdmin();
             if (ingresaInfo != JOptionPane.NO_OPTION) {
 
                 if (ingresaInfo == JOptionPane.YES_OPTION) {
+                    
+                    if (!asoDb.uniquenessCheck(Integer.parseInt(jTextField_usercode.getText()))){
+                    JOptionPane.showConfirmDialog(null, "Este código ya existe en el sistema.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else {
 
                     lista.insertar(new Persona(Integer.parseInt(jTextField_usercode.getText()),
                             jTextField_name.getText(),
@@ -419,9 +427,13 @@ dashboardAdmin dashadmin = new dashboardAdmin();
                             checkbox_isAdmin.getState(),
                             ""));
 
+                    asoDb.createAffRecord(lista.datosPersona(Integer.parseInt(jTextField_usercode.getText())));
+                    JOptionPane.showMessageDialog(null, "Persona ha sido ingresada al sistema.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
                 dispose();
                 dashadmin.setVisible(true);
+                System.out.println(lista.toString());
 
             }
         }
