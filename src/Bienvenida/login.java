@@ -3,14 +3,30 @@ package Bienvenida;
 import Dashboard.dashboardAdmin;
 import Dashboard.dashboardUser;
 import estructuras.Lista;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.event.KeyEvent;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 public class login extends javax.swing.JFrame {
 
     public login() {
         initComponents();
+
+        this.defTextUsercode = jLabel_i_codigo.getText();
+        this.defTextPassword = jLabel_pw.getText();
     }
-    private boolean isValid = false;
+
+    Color errColor = Color.red;
+
+    Color defLabelColor = Color.white;
+    Color defTextColor = Color.black;
+
+    String errText = "!!!";
+    String defTextUsercode;
+    String defTextPassword;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -25,8 +41,8 @@ public class login extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btn_enviar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel_i_codigo = new javax.swing.JLabel();
+        jLabel_pw = new javax.swing.JLabel();
         i_userCode1 = new javax.swing.JTextField();
         jPasswordField2 = new javax.swing.JPasswordField();
         jSeparator1 = new javax.swing.JSeparator();
@@ -51,13 +67,13 @@ public class login extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Código de Usuario:");
+        jLabel_i_codigo.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel_i_codigo.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_i_codigo.setText("Código de Usuario:");
 
-        jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Contraseña:");
+        jLabel_pw.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel_pw.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_pw.setText("Contraseña:");
 
         i_userCode1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,17 +112,18 @@ public class login extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 157, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(i_userCode1, javax.swing.GroupLayout.Alignment.LEADING))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(110, 110, 110))
             .addComponent(jSeparator1)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel_i_codigo)
+                    .addComponent(jLabel_pw))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(i_userCode1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(186, 186, 186)
@@ -125,10 +142,10 @@ public class login extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(i_userCode1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel_i_codigo))
                 .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(jLabel_pw)
                     .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -151,41 +168,77 @@ public class login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public boolean getIsValid() {
-        return this.isValid;
-    }
-
     //Valida las credenciales y setea el flag de valido para desplegar la pantalla correcta
     //Resetea los fields a nulos
-    private void clearFields() {
-        i_userCode1.setText("");
-        jPasswordField2.setText("");
+    private void clearFields(Container container) {
+
+        for (Component c : container.getComponents()) {
+            if (c instanceof JTextField) {
+                JTextField f = (JTextField) c;
+                f.setText("");
+            } else if (c instanceof Container) {
+                clearFields((Container) c);
+            }
+        }
         i_userCode1.requestFocus();
     }
+
+    private Boolean validateInputs() {
+        int errCount = 0;
+
+        errCount = errCount
+                + checkBlankTextInput(i_userCode1, jLabel_i_codigo,
+                        this.defTextUsercode, this.errText)
+                + checkBlankTextInput(jPasswordField2, jLabel_pw,
+                        this.defTextPassword, this.errText);
+
+        return errCount == 0;
+    }
+
+    private int checkBlankTextInput(JTextField fieldName, JLabel labelName, String defText, String errText) {
+        int errCount = 0;
+
+        if (fieldName.getText().length() == 0) {
+            fieldName.setForeground(this.errColor);
+            labelName.setText(defText + errText);
+            labelName.setForeground(this.errColor);
+            errCount++;
+        } else {
+            fieldName.setForeground(this.defTextColor);
+            labelName.setText(defText);
+            labelName.setForeground(this.defLabelColor);
+        }
+        return errCount;
+    }
+
 
     private void btn_enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_enviarActionPerformed
         Lista lista = new Lista();
         dashboardAdmin dashAdmin = new dashboardAdmin();
         dashboardUser dashUser = new dashboardUser();
 
-        char[] pswd = jPasswordField2.getPassword();
-        String pass = new String(pswd);
-        int code = Integer.parseInt(i_userCode1.getText());
+        char[] pswd;
 
-        if (lista.validarContrasena(code, pass)) {
-            
-            if (lista.esAdmin(code)) {
-                dashAdmin.setVisible(true);
-                this.dispose();
+        int code;
+
+        if (validateInputs()) {
+            pswd = jPasswordField2.getPassword();
+            String pass = new String(pswd);
+            code = Integer.parseInt(i_userCode1.getText());
+
+            if (lista.validarContrasena(code, pass)) {
+
+                if (lista.esAdmin(code)) {
+                    dashAdmin.setVisible(true);
+                    this.dispose();
+                } else {
+                    dashUser.setVisible(true);
+                    this.dispose();
+                }
             } else {
-                dashUser.setVisible(true);
-                this.dispose();
+                clearFields(this.getContentPane());
             }
-        } else {
-            clearFields();
         }
-
-
     }//GEN-LAST:event_btn_enviarActionPerformed
 
     private void i_userCode1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_i_userCode1ActionPerformed
@@ -256,9 +309,9 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JButton btn_enviar;
     private javax.swing.JTextField i_userCode1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel_i_codigo;
+    private javax.swing.JLabel jLabel_pw;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;

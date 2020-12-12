@@ -48,49 +48,47 @@ public class Lista {
 
     public void insertar(Persona e) {
 
-        
+        if (cabeza == null) {
 
-            if (cabeza == null) {
+            cabeza = new Nodo(e);
+        } else {
 
-                cabeza = new Nodo(e);
-             } else {
+            Nodo auxi = cabeza;
 
-                Nodo auxi = cabeza;
+            boolean exist = false;
 
-                boolean exist = false;
+            while (auxi != null && exist == false) {
+                if (exist == false) {
 
-                while (auxi != null && exist == false) {
-                    if (exist == false) {
+                    if (e.getUser_code() < cabeza.getDato().getUser_code()) {
 
-                        if (e.getUser_code() < cabeza.getDato().getUser_code()) {
+                        Nodo aux = new Nodo(e);
 
-                            Nodo aux = new Nodo(e);
+                        aux.setNext(cabeza);
 
-                            aux.setNext(cabeza);
+                        cabeza = aux;
 
-                            cabeza = aux;
+                    } else if (cabeza.getNext() == null) {
 
-                        } else if (cabeza.getNext() == null) {
+                        cabeza.setNext(new Nodo(e));
 
-                            cabeza.setNext(new Nodo(e));
+                    } else {
 
-                        } else {
+                        Nodo aux = cabeza;
 
-                            Nodo aux = cabeza;
+                        while (aux.getNext() != null && e.getUser_code() > aux.getNext().getDato().getUser_code()) {
 
-                            while (aux.getNext() != null && e.getUser_code() > aux.getNext().getDato().getUser_code()) {
+                            aux = aux.getNext();
+                        }
+                        Nodo temp = new Nodo(e);
 
-                                aux = aux.getNext();
-                            }
-                            Nodo temp = new Nodo(e);
+                        temp.setNext((aux.getNext()));
 
-                            temp.setNext((aux.getNext()));
-
-                            aux.setNext(temp);
-                            exist = true;
-                        }   
+                        aux.setNext(temp);
+                        exist = true;
                     }
                 }
+            }
         }
     }
 
@@ -105,16 +103,14 @@ public class Lista {
         return s;
     }
 
-    
-    public Persona datosPersona(int code){
-        
+    public Persona datosPersona(int code) {
+
         Nodo auxi = cabeza;
-       Persona datos = new Persona();
+        Persona datos = new Persona();
 
         if (asoDb.cabezaEmpty() || !validarCodigo(code)) {
 
-            JOptionPane.showMessageDialog(null, "No tenemos record de su usario.", "Error", JOptionPane.ERROR_MESSAGE);
-
+            JOptionPane.showMessageDialog(null, "No tenemos record de su usuario.", "Error", JOptionPane.ERROR_MESSAGE);
 
         } else {
             while (auxi != null) {
@@ -129,9 +125,7 @@ public class Lista {
         }
         return datos;
     }
-    
-    
-    
+
     public void elimina(int b) {
         System.out.println("elimina");
         Nodo auxi = cabeza;
@@ -182,7 +176,7 @@ public class Lista {
         if (!validarCodigo(cod)) {
             JOptionPane.showMessageDialog(null, "Se ha presentado un error de autenticacion con su codigo o contraseña" + "\n"
                     + "Por favor contacte al administrador del sistema.", "Error", JOptionPane.ERROR_MESSAGE);
-            
+
         } else {
             while (auxi != null && existe == false) {
                 if (auxi.getDato().getUser_code() == cod) {
@@ -228,4 +222,20 @@ public class Lista {
         return admin;
     }
 
+    public void actualizarPersona(int code, String password) {
+        Nodo auxi = cabeza;
+        boolean actualizado = false;
+
+        while (auxi != null && actualizado == false) {
+            if (auxi.getDato().getUser_code() == code) {
+                auxi.getDato().setPassword(password);
+                actualizado = true;
+
+            } else {
+                auxi = auxi.getNext();
+            }
+        }
+    }
+
+ 
 }

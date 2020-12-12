@@ -1,15 +1,128 @@
-
 package Bienvenida;
 
+import datos.Db;
+import estructuras.Lista;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class password_setup extends javax.swing.JFrame {
 
+    private final int code;
+
     /**
      * Creates new form password_setup
+     *
+     * @param code
      */
-    public password_setup() {
+    public password_setup(int code) {
+        this.code = code;
         initComponents();
     }
+  
+    public boolean isPasswordValid(String password) {
+
+        if (!((password.length() >= 8)
+                && (password.length() <= 15))) {
+            return false;
+        }
+
+        // to check space 
+        if (password.contains(" ")) {
+            return false;
+        }
+        if (true) {
+            int count = 0;
+
+            // check digits from 0 to 9 
+            for (int i = 0; i <= 9; i++) {
+
+                // to convert int to string 
+                String str1 = Integer.toString(i);
+
+                if (password.contains(str1)) {
+                    count = 1;
+                }
+            }
+            if (count == 0) {
+                return false;
+            }
+        }
+
+        // for special characters 
+        if (!(password.contains("@") || password.contains("#")
+                || password.contains("!") || password.contains("~")
+                || password.contains("$") || password.contains("%")
+                || password.contains("^") || password.contains("&")
+                || password.contains("*") || password.contains("(")
+                || password.contains(")") || password.contains("-")
+                || password.contains("+") || password.contains("/")
+                || password.contains(":") || password.contains(".")
+                || password.contains(", ") || password.contains("<")
+                || password.contains(">") || password.contains("?")
+                || password.contains("|"))) {
+            return false;
+        }
+
+        if (true) {
+            int count = 0;
+
+            // checking capital letters 
+            for (int i = 65; i <= 90; i++) {
+
+                // type casting 
+                char c = (char) i;
+
+                String str1 = Character.toString(c);
+                if (password.contains(str1)) {
+                    count = 1;
+                }
+            }
+            if (count == 0) {
+                return false;
+            }
+        }
+
+        if (true) {
+            int count = 0;
+
+            // checking small letters 
+            for (int i = 90; i <= 122; i++) {
+
+                // type casting 
+                char c = (char) i;
+                String str1 = Character.toString(c);
+
+                if (password.contains(str1)) {
+                    count = 1;
+                }
+            }
+            if (count == 0) {
+                return false;
+            }
+        }
+
+        // if all conditions fails 
+        return true;
+    }
+
+    public void clearTextFields(Container container) {
+
+        for (Component c : container.getComponents()) {
+            if (c instanceof JTextField) {
+                JTextField f = (JTextField) c;
+
+                f.setText("");
+            } else if (c instanceof Container) {
+                clearTextFields((Container) c);
+            }
+        }
+        jPasswordField1.requestFocus();
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -22,13 +135,15 @@ public class password_setup extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel_i_contrasena1 = new javax.swing.JLabel();
+        jLabel_i_contrasena2 = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
         jPasswordField2 = new javax.swing.JPasswordField();
         jButton1_clear = new javax.swing.JButton();
         jButton1_continue = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -39,13 +154,13 @@ public class password_setup extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 169, 184));
         jLabel4.setText("AseIsthmus");
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Contraseña:");
+        jLabel_i_contrasena1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel_i_contrasena1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_i_contrasena1.setText("Contraseña:");
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Reingrese la contraseña:");
+        jLabel_i_contrasena2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel_i_contrasena2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_i_contrasena2.setText("Reingrese la contraseña:");
 
         jPasswordField1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
@@ -71,67 +186,87 @@ public class password_setup extends javax.swing.JFrame {
 
         jButton1_continue.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jButton1_continue.setText("Continuar");
+        jButton1_continue.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1_continueMouseClicked(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Contraseña debe ser entre 8 a 15 caracteres.");
+
+        jLabel5.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Debe al menos contener una mayúscula, un número y un caracter especial.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                    .addComponent(jPasswordField1))
-                .addGap(56, 56, 56))
+            .addComponent(jSeparator1)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(91, 91, 91)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabel_i_contrasena2)
+                        .addGap(105, 105, 105)
+                        .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(jButton1_clear)))
-                .addGap(78, 98, Short.MAX_VALUE))
-            .addComponent(jSeparator1)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(272, Short.MAX_VALUE)
-                    .addComponent(jButton1_continue)
-                    .addGap(37, 37, 37)))
+                        .addGap(109, 109, 109)
+                        .addComponent(jLabel_i_contrasena1)
+                        .addGap(105, 105, 105)
+                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addContainerGap(31, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1_clear)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1_continue)
+                        .addGap(101, 101, 101))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(40, 40, 40)
+                    .addComponent(jLabel_i_contrasena1)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jLabel_i_contrasena2)
                     .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addComponent(jButton1_clear)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addGap(44, 44, 44)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1_clear)
+                    .addComponent(jButton1_continue))
                 .addGap(21, 21, 21))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(254, Short.MAX_VALUE)
-                    .addComponent(jButton1_continue)
-                    .addGap(21, 21, 21)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,8 +285,32 @@ public class password_setup extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField2ActionPerformed
 
     private void jButton1_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_clearActionPerformed
-        // TODO add your handling code here:
+        clearTextFields(this.getContentPane());
     }//GEN-LAST:event_jButton1_clearActionPerformed
+
+    private void jButton1_continueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1_continueMouseClicked
+        Lista lista = new Lista();
+        login login = new login();
+        Db asoDb = new Db();
+
+        char[] pswd1 = jPasswordField1.getPassword();
+        char[] pswd2 = jPasswordField2.getPassword();
+        String pass1 = new String(pswd1);
+        String pass2 = new String(pswd2);
+
+        if (!pass1.equals(pass2) || !isPasswordValid(pass1) ) {
+            JOptionPane.showMessageDialog(null, "Las contraseñas no son iguales o no cumplen con los requisitos minimos.", "Error", JOptionPane.ERROR_MESSAGE);
+            clearTextFields(this.getContentPane());
+        } else {
+
+            lista.actualizarPersona(code, pass1);
+            asoDb.updateAffPassword(lista.datosPersona(code));
+            JOptionPane.showMessageDialog(null, "Su contraseña ha sido actualizada", "confirmacion", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+            login.setVisible(true);
+        }
+
+    }//GEN-LAST:event_jButton1_continueMouseClicked
 
     /**
      * @param args the command line arguments
@@ -183,7 +342,7 @@ public class password_setup extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new password_setup().setVisible(true);
+
             }
         });
     }
@@ -191,9 +350,11 @@ public class password_setup extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1_clear;
     private javax.swing.JButton jButton1_continue;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel_i_contrasena1;
+    private javax.swing.JLabel jLabel_i_contrasena2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;

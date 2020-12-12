@@ -84,7 +84,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel_i_codigo" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
@@ -93,7 +93,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="200" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="i_codigo" min="-2" pref="107" max="-2" attributes="0"/>
+                                  <Component id="jTextField_usercode" min="-2" pref="107" max="-2" attributes="0"/>
                                   <Component id="btn_enviar" min="-2" pref="111" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -111,9 +111,9 @@
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel_i_codigo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="i_codigo" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="jTextField_usercode" min="-2" pref="31" max="-2" attributes="0"/>
                       <EmptySpace pref="54" max="32767" attributes="0"/>
                       <Component id="btn_enviar" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
@@ -124,7 +124,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel2">
+            <Component class="javax.swing.JLabel" name="jLabel_i_codigo">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="18" style="0"/>
@@ -135,11 +135,11 @@
                 <Property name="text" type="java.lang.String" value="Ingrese su c&#xf3;digo de empleado"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="i_codigo">
+            <Component class="javax.swing.JTextField" name="jTextField_usercode">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="i_codigoActionPerformed"/>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="i_codigoKeyPressed"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="i_codigoKeyTyped"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField_usercodeActionPerformed"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField_usercodeKeyPressed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField_usercodeKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btn_enviar">

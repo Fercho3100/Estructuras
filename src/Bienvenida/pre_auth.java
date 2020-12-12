@@ -1,16 +1,70 @@
 package Bienvenida;
 
 import estructuras.Lista;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.event.KeyEvent;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class pre_auth extends javax.swing.JFrame {
 
     public pre_auth() {
         initComponents();
-        i_codigo.requestFocus();
+        jTextField_usercode.requestFocus();
+      this.defTextUsercode = jLabel_i_codigo.getText();
     }
 
+    Color errColor = Color.red;
+
+    Color defLabelColor = Color.white;
+    Color defTextColor = Color.black;
+
+    String errText = "!!!";
+    String defTextUsercode;
+
+
+
+    public void clearTextFields(Container container) {
+
+        for (Component c : container.getComponents()) {
+            if (c instanceof JTextField) {
+                JTextField f = (JTextField) c;
+
+                f.setText("");
+            } else if (c instanceof Container) {
+                clearTextFields((Container) c);
+            }
+        }
+        jTextField_usercode.requestFocus();
+    }
+  private Boolean validateInputs() {
+    int errCount = 0;
+
+        errCount = errCount
+                + checkBlankTextInput(jTextField_usercode, jLabel_i_codigo,
+                        this.defTextUsercode, this.errText);
+
+        return errCount == 0;
+    }
+
+    private int checkBlankTextInput(JTextField fieldName, JLabel labelName, String defText, String errText) {
+        int errCount = 0;
+
+        if (fieldName.getText().length() == 0) {
+            fieldName.setForeground(this.errColor);
+            labelName.setText(defText + errText);
+            labelName.setForeground(this.errColor);
+            errCount++;
+        } else {
+            fieldName.setForeground(this.defTextColor);
+            labelName.setText(defText);
+            labelName.setForeground(this.defLabelColor);
+        }
+        return errCount;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -18,8 +72,8 @@ public class pre_auth extends javax.swing.JFrame {
         jSlider1 = new javax.swing.JSlider();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        i_codigo = new javax.swing.JTextField();
+        jLabel_i_codigo = new javax.swing.JLabel();
+        jTextField_usercode = new javax.swing.JTextField();
         btn_enviar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -33,21 +87,21 @@ public class pre_auth extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(3, 41, 79));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Ingrese su código de empleado");
+        jLabel_i_codigo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel_i_codigo.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_i_codigo.setText("Ingrese su código de empleado");
 
-        i_codigo.addActionListener(new java.awt.event.ActionListener() {
+        jTextField_usercode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                i_codigoActionPerformed(evt);
+                jTextField_usercodeActionPerformed(evt);
             }
         });
-        i_codigo.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextField_usercode.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                i_codigoKeyPressed(evt);
+                jTextField_usercodeKeyPressed(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                i_codigoKeyTyped(evt);
+                jTextField_usercodeKeyTyped(evt);
             }
         });
 
@@ -85,14 +139,14 @@ public class pre_auth extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(129, 129, 129)
-                        .addComponent(jLabel2))
+                        .addComponent(jLabel_i_codigo))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jLabel3))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(200, 200, 200)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(i_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_usercode, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btn_enviar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(124, Short.MAX_VALUE))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -105,9 +159,9 @@ public class pre_auth extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jLabel2)
+                .addComponent(jLabel_i_codigo)
                 .addGap(33, 33, 33)
-                .addComponent(i_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField_usercode, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(btn_enviar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
@@ -140,22 +194,27 @@ public class pre_auth extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void i_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_i_codigoActionPerformed
+    private void jTextField_usercodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_usercodeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_i_codigoActionPerformed
+    }//GEN-LAST:event_jTextField_usercodeActionPerformed
 
     private void btn_enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_enviarActionPerformed
-Lista lista = new Lista();
-int code = Integer.parseInt(i_codigo.getText());
-password_setup pwsetup = new password_setup();
- 
-    JOptionPane.showMessageDialog(null, "Bienvenido "+ lista.datosPersona(code).getName(), "Informacion", JOptionPane.INFORMATION_MESSAGE);
-    dispose();
-    pwsetup.setVisible(true);
+        Lista lista = new Lista();
 
-
-
-
+        int code; 
+        
+        if(validateInputs()){ 
+            code = Integer.parseInt(jTextField_usercode.getText());
+            if (lista.validarCodigo(code)) {
+            password_setup pwsetup = new password_setup(code);
+            JOptionPane.showMessageDialog(null, "Bienvenido " + lista.datosPersona(code).getName(), "Informacion", JOptionPane.INFORMATION_MESSAGE);  
+            pwsetup.setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "No tenemos record de su usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+            clearTextFields(this.getContentPane());
+        }
+        }
     }//GEN-LAST:event_btn_enviarActionPerformed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
@@ -166,7 +225,7 @@ password_setup pwsetup = new password_setup();
         dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
-    private void i_codigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_i_codigoKeyPressed
+    private void jTextField_usercodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_usercodeKeyPressed
         char c = evt.getKeyChar();
         if (!((c >= '0') && (c <= '9')
                 || (c == KeyEvent.VK_BACK_SPACE)
@@ -174,9 +233,9 @@ password_setup pwsetup = new password_setup();
             getToolkit().beep();
             evt.consume();
         }
-    }//GEN-LAST:event_i_codigoKeyPressed
+    }//GEN-LAST:event_jTextField_usercodeKeyPressed
 
-    private void i_codigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_i_codigoKeyTyped
+    private void jTextField_usercodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_usercodeKeyTyped
         char c = evt.getKeyChar();
         if (!((c >= '0') && (c <= '9')
                 || (c == KeyEvent.VK_BACK_SPACE)
@@ -184,7 +243,7 @@ password_setup pwsetup = new password_setup();
             getToolkit().beep();
             evt.consume();
         }
-    }//GEN-LAST:event_i_codigoKeyTyped
+    }//GEN-LAST:event_jTextField_usercodeKeyTyped
 
     /**
      * @param args the command line arguments
@@ -224,13 +283,13 @@ password_setup pwsetup = new password_setup();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_enviar;
-    private javax.swing.JTextField i_codigo;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel_i_codigo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSlider jSlider1;
+    private javax.swing.JTextField jTextField_usercode;
     // End of variables declaration//GEN-END:variables
 }

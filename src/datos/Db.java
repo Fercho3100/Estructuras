@@ -195,12 +195,7 @@ public class Db {
             //temporary until have logic for reading stored pw
             
             String db_password = null;
-            
-            if (db_password.equals(pw)) {
-                
-                JOptionPane.showMessageDialog(null, "Elija una contraseña diferente.");
-                
-            } else {
+          
                 
                 p = conn.prepareStatement(updateSql);
                 
@@ -211,7 +206,7 @@ public class Db {
 
                 p.close();
                 conn.close();
-            }
+            
             
         } catch(SQLException s) {
             
@@ -295,12 +290,93 @@ public class Db {
     
  
        
-    public void updateRecord() {
+
+    public void deleteRecord(int code) {
+Connection conn = dbConnect();
+      
+        PreparedStatement p = null;
         
+        String PKtableName = "affiliatedes";
+        
+        String FKtableName = "transactions";
+        
+        int id = getFKid(PKtableName, "user_code", code);
+        
+        String deletePKsql = "DELETE FROM " + PKtableName + " " +
+                             "WHERE user_code = ?; ";
+        
+        String deleteFKsql = "DELETE FROM " + FKtableName + " " +
+                             "WHERE " + "id_"+ PKtableName + " = ?; ";
+      
+        try {
+
+            p = conn.prepareStatement(deleteFKsql);
+            p.setInt(1, id);
+
+            p.executeUpdate();
+            
+            p.close();
+            
+        } catch(SQLException s) {
+            
+            System.out.println("Exception delete FK row data: " + s);
+                       
+        }
+        
+        try {
+            
+            p = conn.prepareStatement(deletePKsql);
+            p.setInt(1, code);
+            
+            p.executeUpdate();
+
+            p.close();
+            conn.close();
+
+        } catch(SQLException s) {
+            
+            System.out.println("Exception delete PK row data: " + s);
+        }
+        
+
     }
     
-    public void deleteRecord() {
+    private int getFKid(String PKtableName, String colName, int int_value) {
+                Connection conn = dbConnect();
+      
+        PreparedStatement p = null;
         
+        ResultSet r = null;
+        
+        int id;
+        
+        String selectSql = "SELECT " + "id_"+ PKtableName  + " FROM " + PKtableName + " " +
+                            "WHERE " + colName + " = ?; ";
+      
+        try {
+
+            p = conn.prepareStatement(selectSql);
+            p.setInt(1, int_value);           
+            
+            r = p.executeQuery();
+              
+            if(r.next()) {
+
+              id = r.getInt("id_" + PKtableName);
+
+            } else {
+              id = -1; 
+            }
+            
+            p.close();
+            conn.close();
+
+        } catch(SQLException s) {
+            System.out.println("Exception read id: " + s);
+            id = -2;
+        }
+        
+        return id;
     }
     
     private Connection dbConnect() {
