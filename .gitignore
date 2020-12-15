@@ -2,3 +2,4 @@
 *.mf
 /dist/
 .src/datos/aso.db
+.build/built-jar.properties
