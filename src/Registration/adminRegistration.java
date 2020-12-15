@@ -5,6 +5,7 @@
  */
 package Registration;
 
+import Bienvenida.login;
 import Dashboard.dashboardAdmin;
 import com.sun.imageio.plugins.jpeg.JPEG;
 import estructuras.Lista;
@@ -25,7 +26,7 @@ import java.util.Date;
 
 public class adminRegistration extends javax.swing.JFrame {
 
-    
+     dashboardAdmin dashadmin = new dashboardAdmin();
 
     Color errColor = Color.red;
 
@@ -142,6 +143,7 @@ public class adminRegistration extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTextField_password = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel_usercode = new javax.swing.JLabel();
@@ -157,12 +159,15 @@ public class adminRegistration extends javax.swing.JFrame {
         jLabel_startDate = new javax.swing.JLabel();
         jLabel_asoDate = new javax.swing.JLabel();
         checkbox_isAdmin = new java.awt.Checkbox();
-        jTextField_password = new javax.swing.JTextField();
-        button_send = new java.awt.Button();
-        button_clear = new java.awt.Button();
         jDateChooser_asoDate = new com.toedter.calendar.JDateChooser();
         jDateChooser_startDate = new com.toedter.calendar.JDateChooser();
         jSeparator1 = new javax.swing.JSeparator();
+        jButton5 = new javax.swing.JButton();
+        jButton6_limpiar = new javax.swing.JButton();
+        jButton7_enviar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+
+        jTextField_password.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -242,29 +247,54 @@ public class adminRegistration extends javax.swing.JFrame {
             }
         });
 
-        jTextField_password.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jTextField_password.setNextFocusableComponent(button_send);
-
-        button_send.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        button_send.setLabel("Enviar");
-        button_send.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_sendActionPerformed(evt);
-            }
-        });
-
-        button_clear.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        button_clear.setLabel("Borrar");
-        button_clear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_clearActionPerformed(evt);
-            }
-        });
-
         jDateChooser_asoDate.setDateFormatString("yyyy-MM-dd");
 
         jDateChooser_startDate.setDateFormatString("yyyy-MM-dd");
         jDateChooser_startDate.setNextFocusableComponent(jDateChooser_asoDate);
+
+        jButton5.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jButton5.setText("Atras");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6_limpiar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jButton6_limpiar.setText("Limpiar");
+        jButton6_limpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6_limpiarMouseClicked(evt);
+            }
+        });
+        jButton6_limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6_limpiarActionPerformed(evt);
+            }
+        });
+
+        jButton7_enviar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jButton7_enviar.setText("Enviar");
+        jButton7_enviar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton7_enviarMouseClicked(evt);
+            }
+        });
+        jButton7_enviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7_enviarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Desloguearme");
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -272,46 +302,51 @@ public class adminRegistration extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
+                        .addComponent(jButton5)
+                        .addGap(270, 270, 270)
+                        .addComponent(jButton6_limpiar)
+                        .addGap(35, 35, 35)
+                        .addComponent(jButton7_enviar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel_rol, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel_usercode, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jTextField_password, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField_usercode, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel_lastname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField_name)
-                                    .addComponent(jTextField_lastname)
-                                    .addComponent(jTextField_rol, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField_usercode, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel_lastname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField_name)
+                                .addComponent(jTextField_lastname)
+                                .addComponent(jTextField_rol, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(105, 105, 105)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkbox_isAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel_grossAmount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel_startDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel_asoDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel_asoDate, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                                 .addComponent(jTextField_grossAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jDateChooser_startDate, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(button_clear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-                                    .addComponent(button_send, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jDateChooser_asoDate, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(checkbox_isAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(191, 191, 191)
-                        .addComponent(jLabel1)))
+                                .addComponent(jDateChooser_asoDate, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(94, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(112, 112, 112)
+                .addComponent(jLabel2)
+                .addGap(26, 26, 26))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
+                .addContainerGap(38, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,33 +383,89 @@ public class adminRegistration extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTextField_rol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDateChooser_asoDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button_send, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button_clear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52))
+                .addGap(50, 50, 50)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5)
+                    .addComponent(jButton6_limpiar)
+                    .addComponent(jButton7_enviar))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button_sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_sendActionPerformed
+    private void checkbox_isAdminPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_checkbox_isAdminPropertyChange
 
-        dashboardAdmin dashadmin = new dashboardAdmin();
+
+    }//GEN-LAST:event_checkbox_isAdminPropertyChange
+
+    private void jTextField_grossAmountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_grossAmountKeyTyped
+
+        char c = evt.getKeyChar();
+        if (!((c >= '0') && (c <= '9') || (c == '.')
+                || (c == KeyEvent.VK_BACK_SPACE)
+                || (c == KeyEvent.VK_DELETE))) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField_grossAmountKeyTyped
+
+    private void jTextField_usercodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_usercodeKeyTyped
+        char c = evt.getKeyChar();
+        if (!((c >= '0') && (c <= '9')
+                || (c == KeyEvent.VK_BACK_SPACE)
+                || (c == KeyEvent.VK_DELETE))) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField_usercodeKeyTyped
+
+    private void jTextField_grossAmountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_grossAmountKeyPressed
+        char c = evt.getKeyChar();
+        if (!((c >= '0') && (c <= '9') || (c == '.')
+                || (c == KeyEvent.VK_BACK_SPACE)
+                || (c == KeyEvent.VK_DELETE))) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField_grossAmountKeyPressed
+
+    private void jTextField_usercodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_usercodeKeyPressed
+        char c = evt.getKeyChar();
+        if (!((c >= '0') && (c <= '9')
+                || (c == KeyEvent.VK_BACK_SPACE)
+                || (c == KeyEvent.VK_DELETE))) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField_usercodeKeyPressed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    dashadmin.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6_limpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6_limpiarMouseClicked
+      
+    }//GEN-LAST:event_jButton6_limpiarMouseClicked
+
+    private void jButton6_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6_limpiarActionPerformed
+        clearTextFields(this.getContentPane());
+    }//GEN-LAST:event_jButton6_limpiarActionPerformed
+
+    private void jButton7_enviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7_enviarMouseClicked
         Db asoDb = new Db();
         Lista lista = new Lista();
         int ingresaInfo;
@@ -441,57 +532,17 @@ public class adminRegistration extends javax.swing.JFrame {
 
             }
         }
-    }//GEN-LAST:event_button_sendActionPerformed
+    }//GEN-LAST:event_jButton7_enviarMouseClicked
 
-    private void button_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_clearActionPerformed
-        clearTextFields(this.getContentPane());
-    }//GEN-LAST:event_button_clearActionPerformed
+    private void jButton7_enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7_enviarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7_enviarActionPerformed
 
-    private void checkbox_isAdminPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_checkbox_isAdminPropertyChange
-
-
-    }//GEN-LAST:event_checkbox_isAdminPropertyChange
-
-    private void jTextField_grossAmountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_grossAmountKeyTyped
-
-        char c = evt.getKeyChar();
-        if (!((c >= '0') && (c <= '9') || (c == '.')
-                || (c == KeyEvent.VK_BACK_SPACE)
-                || (c == KeyEvent.VK_DELETE))) {
-            getToolkit().beep();
-            evt.consume();
-        }
-    }//GEN-LAST:event_jTextField_grossAmountKeyTyped
-
-    private void jTextField_usercodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_usercodeKeyTyped
-        char c = evt.getKeyChar();
-        if (!((c >= '0') && (c <= '9')
-                || (c == KeyEvent.VK_BACK_SPACE)
-                || (c == KeyEvent.VK_DELETE))) {
-            getToolkit().beep();
-            evt.consume();
-        }
-    }//GEN-LAST:event_jTextField_usercodeKeyTyped
-
-    private void jTextField_grossAmountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_grossAmountKeyPressed
-        char c = evt.getKeyChar();
-        if (!((c >= '0') && (c <= '9') || (c == '.')
-                || (c == KeyEvent.VK_BACK_SPACE)
-                || (c == KeyEvent.VK_DELETE))) {
-            getToolkit().beep();
-            evt.consume();
-        }
-    }//GEN-LAST:event_jTextField_grossAmountKeyPressed
-
-    private void jTextField_usercodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_usercodeKeyPressed
-        char c = evt.getKeyChar();
-        if (!((c >= '0') && (c <= '9')
-                || (c == KeyEvent.VK_BACK_SPACE)
-                || (c == KeyEvent.VK_DELETE))) {
-            getToolkit().beep();
-            evt.consume();
-        }
-    }//GEN-LAST:event_jTextField_usercodeKeyPressed
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        login login = new login();
+        login.setVisible(true);
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -529,12 +580,14 @@ public class adminRegistration extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button button_clear;
-    private java.awt.Button button_send;
     private java.awt.Checkbox checkbox_isAdmin;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6_limpiar;
+    private javax.swing.JButton jButton7_enviar;
     private com.toedter.calendar.JDateChooser jDateChooser_asoDate;
     private com.toedter.calendar.JDateChooser jDateChooser_startDate;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel_asoDate;
     private javax.swing.JLabel jLabel_grossAmount;
     private javax.swing.JLabel jLabel_lastname;

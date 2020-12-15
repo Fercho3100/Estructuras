@@ -11,8 +11,20 @@ public class Persona {
     boolean admin;
     double gross_amount;
 
-    public Persona(){
+    public Persona() {
+    }
+
+    public Persona(String name, String last_name, String rol ) {
+        this.name = name;
+        this.last_name = last_name;
+        this.rol = rol;
         
+    }
+
+public Persona(int id, String name, String last_name) {
+        this.user_code = id;
+        this.name = name;
+        this.last_name = last_name;
     }
 
     public Persona(int user_code, String name, String last_name, String rol, double gross_amount, String DateWork, String Date_to_asso, boolean admin, String password) {
@@ -31,6 +43,7 @@ public class Persona {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+  
     @Override
     public String toString() {
         return "Persona{" + "id=" + user_code + ", name=" + name + ", last_name=" + last_name + ", rol=" + rol + ", password=" + password + ", DateWork=" + DateWork + ", Date_to_asso=" + Date_to_asso + ", admin=" + admin + ", gross_amount=" + gross_amount + '}';

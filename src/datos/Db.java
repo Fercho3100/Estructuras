@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 public class Db {
 
     private final String dbDriver = "org.sqlite.JDBC";
-    private final String dbPath = "C:/Users/krudin/Desktop/proyectoEstuDatos/Estructuras/src/datos/";
+    private final String dbPath = "src/datos/";
     private final String dbName = "aso.db";
     private final String dbUrl = "jdbc:sqlite:" + dbPath + dbName;
 

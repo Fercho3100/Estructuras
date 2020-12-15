@@ -50,8 +50,11 @@ public class Lista {
 
         if (cabeza == null) {
 
+
             cabeza = new Nodo(e);
         } else {
+
+
 
             Nodo auxi = cabeza;
 
@@ -91,7 +94,8 @@ public class Lista {
             }
         }
     }
-
+    
+    
     @Override
     public String toString() {
         Nodo aux = cabeza;
@@ -101,6 +105,17 @@ public class Lista {
             aux = aux.getNext();
         }
         return s;
+    }
+
+    
+    public Persona GetCabeza(){
+        Nodo aux = cabeza;
+        if(aux != null){
+        
+            return aux.getDato();
+        }else{
+            return null;
+        }
     }
 
     public Persona datosPersona(int code) {
@@ -118,7 +133,6 @@ public class Lista {
                     datos = auxi.getDato();
                     break;
                 } else {
-
                     auxi = auxi.getNext();//avanza de nodo
                 }
             }

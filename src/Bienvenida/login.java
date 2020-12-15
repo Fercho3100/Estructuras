@@ -11,12 +11,14 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class login extends javax.swing.JFrame {
-
+   
+ 
     public login() {
         initComponents();
 
         this.defTextUsercode = jLabel_i_codigo.getText();
         this.defTextPassword = jLabel_pw.getText();
+    
     }
 
     Color errColor = Color.red;
@@ -90,7 +92,7 @@ public class login extends javax.swing.JFrame {
         });
 
         jPasswordField2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jPasswordField2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPasswordField2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPasswordField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordField2ActionPerformed(evt);
@@ -126,9 +128,9 @@ public class login extends javax.swing.JFrame {
                     .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(186, 186, 186)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_enviar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(86, 86, 86)
                 .addComponent(jLabel4)
                 .addGap(27, 27, 27))
         );
@@ -149,8 +151,8 @@ public class login extends javax.swing.JFrame {
                     .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_enviar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(btn_enviar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38))
         );
 
@@ -170,6 +172,8 @@ public class login extends javax.swing.JFrame {
 
     //Valida las credenciales y setea el flag de valido para desplegar la pantalla correcta
     //Resetea los fields a nulos
+    
+   
     private void clearFields(Container container) {
 
         for (Component c : container.getComponents()) {
@@ -215,16 +219,17 @@ public class login extends javax.swing.JFrame {
     private void btn_enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_enviarActionPerformed
         Lista lista = new Lista();
         dashboardAdmin dashAdmin = new dashboardAdmin();
-        dashboardUser dashUser = new dashboardUser();
 
         char[] pswd;
 
         int code;
 
+
         if (validateInputs()) {
             pswd = jPasswordField2.getPassword();
             String pass = new String(pswd);
             code = Integer.parseInt(i_userCode1.getText());
+
 
             if (lista.validarContrasena(code, pass)) {
 
@@ -232,6 +237,10 @@ public class login extends javax.swing.JFrame {
                     dashAdmin.setVisible(true);
                     this.dispose();
                 } else {
+
+                    dashboardUser dashUser = new dashboardUser(code);
+
+
                     dashUser.setVisible(true);
                     this.dispose();
                 }
